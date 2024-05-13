@@ -52,7 +52,7 @@ End Sub
 
 ```
 
-For this next part I used ChaptGPT to help me seperate names from a fullname column to a firstname and last name column.  The range of this code was edited to fit my own.
+For this next part I used ChaptGPT to help me seperate names from a fullname column to a firstname and last name column.  The range of this code was edited to fit my data.
 
 ```vbscript
 
