@@ -52,3 +52,44 @@ End Sub
 
 ```
 
+For this next part I used ChaptGPT to help me seperate names from a fullname column to a firstname and last name column.  The range of this code was edited to fit my own.
+
+```vbscript
+
+Sub SeparateNames()
+    
+    Dim rng As Range
+    Dim cell As Range
+    Dim fullName As String
+    Dim firstName As String
+    Dim lastName As String
+    Dim spacePos As Integer
+    
+    ' Set the range where the names are located
+    Set rng = Range("B1:B1000") ' Adjust the range as needed
+    
+    ' Loop through each cell in the range
+    For Each cell In rng
+        ' Check if the cell is not empty
+        If Not IsEmpty(cell) Then
+            fullName = Trim(cell.Value) ' Remove leading and trailing spaces
+            ' Find the position of the first space
+            spacePos = InStr(fullName, " ")
+            If spacePos > 0 Then
+                ' Separate first name and last name
+                firstName = Left(fullName, spacePos - 1)
+                lastName = Mid(fullName, spacePos + 1)
+                
+                ' Output the separated names to adjacent cells
+                cell.Offset(0, 1).Value = firstName
+                cell.Offset(0, 2).Value = lastName
+            Else
+                ' If no space found, assume the whole content as the first name
+                cell.Offset(0, 1).Value = fullName
+            End If
+        End If
+    Next cell
+End Sub
+
+
+```
