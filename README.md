@@ -91,5 +91,99 @@ Sub SeparateNames()
     Next cell
 End Sub
 
+```
 
+The next created procedures all helped in importing columns of data into a main sheet of data so that all of the data could be housed in one worksheet. These included adding information like school_name, route_type_translation, run_number, capacity, garage_location, etc.
+
+```vbscript
+Public Sub animal()
+
+    Dim rlaf As Worksheet: Set rlaf = Workbooks("run_listing_all_fields_5.15.24.xlsm").Worksheets("editable")
+    Dim fc As Worksheet: Set fc = Workbooks("final_copy.xlsm").Worksheets("editable")
+
+    lastrow = rlaf.Range("Q" & rlaf.Rows.Count).End(xlUp).Row
+    
+    For i = 2 To lastrow
+    
+        animal_ = Application.Match(rlaf.Cells(i, 17), fc.Range(fc.Cells(2, 2), fc.Cells(1000, 2)), 0)
+        
+        If IsError(animal_) Then
+        ElseIf animal_ > 0 Then
+        
+            rlaf.Cells(i, 18) = fc.Cells(animal_ + 1, 3)
+        
+        End If
+                        
+    
+    Next i
+
+End Sub
+
+
+Public Sub capacity_garage()
+
+    Dim rlaf As Worksheet: Set rlaf = Workbooks("run_listing_all_fields_5.15.24.xlsm").Worksheets("editable")
+    Dim rivi As Worksheet: Set rivi = Workbooks("route_info_vehicle_inv_5.15.24.xlsm").Worksheets("editable")
+
+    lastrow = rlaf.Range("AC" & rlaf.Rows.Count).End(xlUp).Row
+    
+    For i = 2 To lastrow
+    
+        veh_number = Application.Match(rlaf.Cells(i, 29), rivi.Range(rivi.Cells(2, 2), rivi.Cells(1000, 2)), 0)
+        
+        If IsError(veh_number) Then
+        ElseIf veh_number > 0 Then
+        
+            rlaf.Cells(i, 30) = rivi.Cells(veh_number + 1, 4)
+            rlaf.Cells(i, 31) = rivi.Cells(veh_number + 1, 3)
+        
+        End If
+                        
+    
+    Next i
+
+End Sub
+
+
+Public Sub route_type_translation()
+
+    Dim rlaf As Worksheet: Set rlaf = Workbooks("run_listing_all_fields_5.15.24.xlsm").Worksheets("editable")
+    Dim rtt As Worksheet: Set rtt = Workbooks("route_type_translation.xlsm").Worksheets("editable")
+
+    lastrow = rlaf.Range("K" & rlaf.Rows.Count).End(xlUp).Row
+    
+    For i = 2 To lastrow
+    
+        term = Application.Match(rlaf.Cells(i, 11), rtt.Range(rtt.Cells(2, 1), rtt.Cells(8, 1)), 0)
+        
+        If IsError(term) Then
+        ElseIf term > 0 Then
+        
+            rlaf.Cells(i, 12) = rtt.Cells(term + 1, 2)
+        
+        End If
+                        
+    
+    Next i
+
+End Sub
+
+
+Public Sub run_school_num()
+
+    Dim rlaf As Worksheet: Set rlaf = Workbooks("run_listing_all_fields_5.15.24.xlsm").Worksheets("editable")
+    'Dim vl As Worksheet: Set vl = Workbooks("Vehicle_Listing.xlsm").Worksheets("editable")
+
+    lastrow = rlaf.Range("O" & rlaf.Rows.Count).End(xlUp).Row
+    
+    For i = 2 To lastrow
+    
+        
+        rlaf.Cells(i, 16) = Mid(rlaf.Cells(i, 15), 4, 5)
+        rlaf.Cells(i, 17) = Left(rlaf.Cells(i, 15), 3)
+        rlaf.Cells(i, 16) = Trim(rlaf.Cells(i, 16))
+    
+    Next i
+
+End Sub
 ```
